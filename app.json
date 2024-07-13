@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "MoviesBooking",
+    "slug": "MoviesBooking",
+    "version": "1.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "3d943b7c-07f4-4ede-909d-9420e5835fcd"
+      }
+    }
+  },
+  "name": "MoviesBooking"
+}
