@@ -8,6 +8,7 @@ import {
   ScrollView,
   Dimensions,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
@@ -61,7 +62,11 @@ export default function RegisterScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      style={styles.container}
+    >
       <Image source={Logo} style={styles.image} />
 
       <Text style={styles.title}>Create an Account</Text>
@@ -194,7 +199,7 @@ export default function RegisterScreen() {
           <Text style={styles.loginLinkText}>Sign In</Text>
         </Text>
       </TouchableOpacity>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

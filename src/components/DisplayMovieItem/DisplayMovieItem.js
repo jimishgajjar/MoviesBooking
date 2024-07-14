@@ -14,14 +14,11 @@ const DisplayMovieItem = ({ item }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate("MovieDetailsScreen", { movieId: item.id });
+    navigation.navigate("MovieDetailsScreen", { movie: item });
   };
 
   return (
-    <TouchableOpacity
-      onPress={handlePress} // Pass handlePress function reference
-      style={styles.movieContainer}
-    >
+    <TouchableOpacity onPress={handlePress} style={styles.movieContainer}>
       <Image source={{ uri: item.imageUri }} style={styles.movieImage} />
       <Text style={styles.movieTitle}>{item.title}</Text>
       <Text style={styles.movieType}>{item.type}</Text>

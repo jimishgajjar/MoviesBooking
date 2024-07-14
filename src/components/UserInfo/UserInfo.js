@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -9,8 +9,6 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   mobile: Yup.string().required("Mobile number is required"),
 });
-
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const UserInfo = ({ userInfo }) => {
   return (
@@ -44,21 +42,25 @@ const UserInfo = ({ userInfo }) => {
               <CustomTextInput
                 label="Email"
                 placeholder="Email"
+                iconname="email-outline"
                 style={styles.input}
                 value={values.email}
                 onChangeText={handleChange("email")}
                 onBlur={() => setFieldTouched("email")}
                 error={touched.email && errors.email}
+                readOnly // Set readOnly prop to true for read-only behavior
               />
 
               <CustomTextInput
                 label="Mobile"
                 placeholder="Mobile"
+                iconname="phone-outline"
                 style={styles.input}
                 value={values.mobile}
                 onChangeText={handleChange("mobile")}
                 onBlur={() => setFieldTouched("mobile")}
                 error={touched.mobile && errors.mobile}
+                readOnly // Set readOnly prop to true for read-only behavior
               />
             </View>
           )}

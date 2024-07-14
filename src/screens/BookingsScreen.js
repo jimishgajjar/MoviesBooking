@@ -1,37 +1,34 @@
 import React from "react";
 import {
-  View,
-  Text,
-  Image,
   StyleSheet,
-  TouchableOpacity,
+  KeyboardAvoidingView,
   ScrollView,
+  View,
+  Platform,
 } from "react-native";
-import movieData from "../MoviesData";
+import { useStore } from "zustand";
+import { LoginStore } from "../store";
+import BookingCard from "../components/BookingCard/BookingCard";
 
 const BookingsScreen = () => {
-  const moviesToDisplay = movieData.slice(0, 2);
+  const { user } = useStore(LoginStore);
+
+  const bookings = user ? user.bookings || [] : [];
 
   return (
-    <ScrollView style={styles.container}>
-      {moviesToDisplay.map((movie) => (
-        <View key={movie.id} style={styles.card}>
-          <Image style={styles.cardImage} source={{ uri: movie.imageUri }} />
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>{movie.title}</Text>
-            <Text style={styles.cardRating}>Type: {movie.type}</Text>
-            <Text style={styles.cardDetails}>Duration: {movie.duration}</Text>
-            <Text style={styles.cardDetails}>Language: {movie.language}</Text>
-            <Text style={styles.cardDetails}>
-              Release Date: {movie.releaseDate}
-            </Text>
-            <TouchableOpacity style={styles.cardButton}>
-              <Text style={styles.cardButtonText}>View ticket</Text>
-            </TouchableOpacity>
-          </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      style={styles.container}
+    >
+      <ScrollView>
+        <View>
+          {bookings.map((booking, index) => (
+            <BookingCard key={index} booking={booking} />
+          ))}
         </View>
-      ))}
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -48,7 +48,24 @@
       "lastName": "Test",
       "email": "test@gmail.com",
       "mobile": "9737956805",
-      "password": "password"
+      "password": "password",
+      "bookings": [
+        {
+          "movie": {
+            "id": "1",
+            "title": "Kalki 2898 AD",
+            "imageUri": "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC/et00352941-vlynhuektb-portrait.jpg",
+            "type": "Action/Sci-Fi/Thriller",
+            "duration": "3h 1m",
+            "language": "Telugu, Hindi, +3",
+            "releaseDate": "27 Jun, 2024",
+            "description": "When the world is taken over by darkness. A force will rise."
+          },
+          "numberOfPeople": 1,
+          "numberOfChildren": 0,
+          "bookingDate": "14-07-2024"
+        }
+      ]
     },
     {
       "id": "a134",

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,41 +8,63 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import { useStore } from "zustand";
 import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
 import HeroImage from "../assets/images/movies/hero.jpg";
-import movieData from "../MoviesData";
+import { fetchMovies } from "../services/api";
+import { MoviesStore } from "../store";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { movies, setMovies } = useStore(MoviesStore);
+
+  useEffect(() => {
+    const loadMovies = async () => {
+      try {
+        const fetchedMovies = await fetchMovies();
+        setMovies(fetchedMovies);
+      } catch (error) {
+        console.error("Error loading movies:", error);
+      }
+    };
+
+    loadMovies();
+  }, [setMovies]);
 
   const renderMovieItem = ({ item }) => <DisplayMovieItem item={item} />;
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Image source={HeroImage} style={styles.image} />
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Recommended Movies</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Movies")}>
-            <Text style={styles.seeAllText}>See All</Text>
-          </TouchableOpacity>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    >
+      <ScrollView>
+        <View style={styles.container}>
+          <Image source={HeroImage} style={styles.image} />
+          <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>Recommended Movies</Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Movies")}>
+              <Text style={styles.seeAllText}>See All</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.content}>
+            <FlatList
+              data={movies}
+              renderItem={renderMovieItem}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              scrollEnabled={false}
+            />
+          </View>
         </View>
-        <View style={styles.content}>
-          <FlatList
-            data={movieData}
-            renderItem={renderMovieItem}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            scrollEnabled={false}
-          />
-        </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

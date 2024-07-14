@@ -30,7 +30,7 @@ function MainTabNavigator() {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Movies") {
             iconName = focused ? "film" : "film-outline";
-          } else if (route.name === "Bookings") {
+          } else if (route.name === "BookingsScreen") {
             iconName = focused ? "ticket" : "ticket-outline";
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
@@ -81,7 +81,7 @@ function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="Bookings"
+        name="BookingsScreen"
         component={BookingsScreen}
         options={{
           header: ({ navigation }) => (

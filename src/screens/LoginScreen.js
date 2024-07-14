@@ -81,7 +81,7 @@ const LoginScreen = () => {
             <CustomTextInput
               label="Email"
               placeholder="Email"
-              iconname="email"
+              iconname="email-outline"
               style={styles.input}
               autoCapitalize="none"
               keyboardType="email-address"

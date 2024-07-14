@@ -7,32 +7,35 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { FontAwesome } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/Entypo";
 
-import movieData from "../MoviesData";
-
 const MovieDetailsScreen = () => {
   const route = useRoute();
+  const { movie } = route.params;
   const navigation = useNavigation();
-  const { movieId } = route.params;
-  const movie = movieData.find((m) => m.id === movieId);
 
   const handleBookTickets = () => {
-    navigation.navigate("TicketBookingScreen", { movieId: movieId });
+    navigation.navigate("TicketBookingScreen", { movie: movie });
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      style={styles.container}
+    >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <FontAwesome name="chevron-left" size={24} color="#dc3558" />
+            <FontAwesome name="angle-left" size={24} color="#dc3558" />
           </TouchableOpacity>
           <Text style={styles.title}>{movie.title}</Text>
           <TouchableOpacity style={styles.shareButton}>
@@ -77,7 +80,7 @@ const MovieDetailsScreen = () => {
       <TouchableOpacity style={styles.bookButton} onPress={handleBookTickets}>
         <Text style={styles.bookButtonText}>Book tickets</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

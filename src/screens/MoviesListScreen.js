@@ -1,40 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
-  Text,
-  Image,
   StyleSheet,
   FlatList,
   Dimensions,
   ScrollView,
-  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
+import { useNavigation } from "@react-navigation/native";
+import { useStore } from "zustand";
 import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
-
-import movieData from "../MoviesData";
+import { MoviesStore } from "../store";
 
 const { width: screenWidth } = Dimensions.get("window");
 
 const MoviesListScreen = () => {
   const navigation = useNavigation();
+  const { movies, setMovies } = useStore(MoviesStore);
 
   const renderMovieItem = ({ item }) => <DisplayMovieItem item={item} />;
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <FlatList
-            data={movieData}
-            renderItem={renderMovieItem}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            scrollEnabled={false}
-          />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+    >
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.content}>
+            <FlatList
+              data={movies}
+              renderItem={renderMovieItem}
+              keyExtractor={(item) => item.id}
+              numColumns={2}
+              scrollEnabled={false}
+            />
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -51,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 10,
   },
-
   movieContainer: {
     flex: 1,
     margin: 10,
