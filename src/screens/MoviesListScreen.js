@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   View,
   StyleSheet,
@@ -13,12 +13,10 @@ import { useStore } from "zustand";
 import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
 import { MoviesStore } from "../store";
 
-const { width: screenWidth } = Dimensions.get("window");
-
 const MoviesListScreen = () => {
-  const navigation = useNavigation();
-  const { movies, setMovies } = useStore(MoviesStore);
+  const { movies, setMovies } = useStore(MoviesStore); // Accessing Zustand store
 
+  // Function to render each movie item
   const renderMovieItem = ({ item }) => <DisplayMovieItem item={item} />;
 
   return (
@@ -29,6 +27,7 @@ const MoviesListScreen = () => {
       <ScrollView>
         <View style={styles.container}>
           <View style={styles.content}>
+            {/* FlatList to display movies */}
             <FlatList
               data={movies}
               renderItem={renderMovieItem}
@@ -48,29 +47,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  image: {
-    width: screenWidth,
-    height: screenWidth * 0.5,
-  },
   content: {
     flex: 1,
     paddingBottom: 10,
-  },
-  movieContainer: {
-    flex: 1,
-    margin: 10,
-  },
-  movieImage: {
-    width: "100%",
-    height: screenWidth * 0.8,
-    borderRadius: 10,
-  },
-  movieTitle: {
-    marginTop: 5,
-    fontWeight: "bold",
-  },
-  movieType: {
-    marginTop: 5,
   },
 });
 

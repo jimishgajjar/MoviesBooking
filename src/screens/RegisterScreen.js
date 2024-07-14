@@ -9,6 +9,7 @@ import {
   Dimensions,
   Alert,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Formik } from "formik";
@@ -19,11 +20,10 @@ import Logo from "../assets/images/logo/logo.png";
 import CustomTextInput from "../components/CustomTextInput/CustomTextInput";
 import { addUser } from "../services/api";
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
-
 export default function RegisterScreen() {
   const navigation = useNavigation();
 
+  // Initial form values
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -32,6 +32,7 @@ export default function RegisterScreen() {
     password: "",
   };
 
+  // Form validation schema using Yup
   const validationSchema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
@@ -46,13 +47,14 @@ export default function RegisterScreen() {
     password: yup.string().required("Password is required"),
   });
 
+  // Handle registration form submission
   const handleRegister = async (values) => {
     try {
-      const response = await addUser(values);
+      const response = await addUser(values); // Example API call to register user
 
       if (response) {
         Alert.alert("Success", "Registration successful");
-        navigation.navigate("LoginScreen");
+        navigation.navigate("LoginScreen"); // Navigate to LoginScreen after successful registration
       } else {
         Alert.alert("Error", "Registration failed");
       }
@@ -72,6 +74,7 @@ export default function RegisterScreen() {
       <Text style={styles.title}>Create an Account</Text>
       <Text style={styles.subtitle}>Join us for a great experience</Text>
 
+      {/* Formik handles the form state, validation, and submission */}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -86,6 +89,7 @@ export default function RegisterScreen() {
           touched,
         }) => (
           <>
+            {/* CustomTextInput component for each form field */}
             <CustomTextInput
               label="First Name"
               placeholder="First Name"
@@ -160,6 +164,7 @@ export default function RegisterScreen() {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
 
+            {/* Register button */}
             <TouchableOpacity
               style={styles.registerButton}
               onPress={handleSubmit}
@@ -170,12 +175,14 @@ export default function RegisterScreen() {
         )}
       </Formik>
 
+      {/* Separator line with 'OR' text */}
       <View style={styles.orContainer}>
         <View style={styles.line} />
         <Text style={styles.orText}>OR</Text>
         <View style={styles.line} />
       </View>
 
+      {/* Social login buttons */}
       <View style={styles.socialContainer}>
         <TouchableOpacity style={styles.socialButton}>
           <Icon name="logo-google" size={24} color="#DB4437" />
@@ -190,6 +197,7 @@ export default function RegisterScreen() {
         </TouchableOpacity>
       </View>
 
+      {/* Link to login screen */}
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate("LoginScreen")}

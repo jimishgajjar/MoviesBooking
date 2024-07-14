@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Dimensions,
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
@@ -19,6 +18,7 @@ const MovieDetailsScreen = () => {
   const { movie } = route.params;
   const navigation = useNavigation();
 
+  // Function to handle booking tickets for the selected movie
   const handleBookTickets = () => {
     navigation.navigate("TicketBookingScreen", { movie: movie });
   };
@@ -30,6 +30,7 @@ const MovieDetailsScreen = () => {
       style={styles.container}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        {/* Header with back button, movie title, and share button */}
         <View style={styles.headerContainer}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -42,26 +43,38 @@ const MovieDetailsScreen = () => {
             <Icon name="share" size={20} color="#fff" />
           </TouchableOpacity>
         </View>
+
+        {/* Movie image */}
         <Image source={{ uri: movie.imageUri }} style={styles.image} />
+
+        {/* Subheader with genre, duration, language, and release date */}
         <View style={styles.subHeader}>
           <Text style={styles.genre}>{movie.type}</Text>
           <Text style={styles.duration}>{movie.duration}</Text>
           <Text style={styles.language}>{movie.language}</Text>
           <Text style={styles.releaseDate}>{movie.releaseDate}</Text>
         </View>
+
+        {/* Movie description */}
         <Text style={styles.description}>{movie.description}</Text>
+
+        {/* Container for interested count and interested button */}
         <View style={styles.interestedContainer}>
           <Text style={styles.interestedText}>1.2M are interested</Text>
           <TouchableOpacity style={styles.interestedButton}>
             <Text style={styles.interestedButtonText}>I'm interested</Text>
           </TouchableOpacity>
         </View>
+
+        {/* Container for trending count */}
         <View style={styles.trendingContainer}>
           <Text style={styles.trendingText}>Trending</Text>
           <Text style={styles.trendingCount}>
             54.73K tickets booked in last 1 hour
           </Text>
         </View>
+
+        {/* Container for top offers */}
         <View style={styles.offersContainer}>
           <Text style={styles.offersTitle}>Top offers for you</Text>
           <ScrollView horizontal>
@@ -77,6 +90,8 @@ const MovieDetailsScreen = () => {
           </ScrollView>
         </View>
       </ScrollView>
+
+      {/* Button to book tickets */}
       <TouchableOpacity style={styles.bookButton} onPress={handleBookTickets}>
         <Text style={styles.bookButtonText}>Book tickets</Text>
       </TouchableOpacity>

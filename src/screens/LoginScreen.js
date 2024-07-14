@@ -22,14 +22,16 @@ import useLoginStore from "../store/LoginStore"; // Import your Zustand store ho
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 const LoginScreen = () => {
-  const navigation = useNavigation(); // Ensure useNavigation is directly used in the component body
-  const setUser = useLoginStore((state) => state.setUser); // Access setUser from Zustand store
+  const navigation = useNavigation();
+  const setUser = useLoginStore((state) => state.setUser);
 
+  // Initial values for Formik form
   const initialValues = {
     email: "test@gmail.com",
     password: "password",
   };
 
+  // Validation schema for Formik form fields
   const validationSchema = yup.object().shape({
     email: yup
       .string()
@@ -38,6 +40,7 @@ const LoginScreen = () => {
     password: yup.string().required("Password is required"),
   });
 
+  // Function to handle form submission
   const handleLogin = async (values, { setSubmitting, setErrors }) => {
     try {
       const { email, password } = values;
@@ -63,6 +66,7 @@ const LoginScreen = () => {
       <Text style={styles.title}>Let's Sign you in</Text>
       <Text style={styles.subtitle}>Welcome Back, You have been missed</Text>
 
+      {/* Formik form for handling user input and validation */}
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -78,6 +82,7 @@ const LoginScreen = () => {
           isSubmitting,
         }) => (
           <>
+            {/* CustomTextInput component for email input */}
             <CustomTextInput
               label="Email"
               placeholder="Email"
@@ -89,10 +94,12 @@ const LoginScreen = () => {
               onChangeText={handleChange("email")}
               onBlur={handleBlur("email")}
             />
+            {/* Display validation error for email field if touched and error exists */}
             {touched.email && errors.email && (
               <Text style={styles.validationError}>{errors.email}</Text>
             )}
 
+            {/* CustomTextInput component for password input */}
             <CustomTextInput
               label="Password"
               placeholder="Password"
@@ -103,16 +110,19 @@ const LoginScreen = () => {
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
             />
+            {/* Display validation error for password field if touched and error exists */}
             {touched.password && errors.password && (
               <Text style={styles.validationError}>{errors.password}</Text>
             )}
 
+            {/* Display login error message if login fails */}
             {errors.login && (
               <Text style={[styles.validationError, styles.loginError]}>
                 {errors.login}
               </Text>
             )}
 
+            {/* Login button */}
             <TouchableOpacity
               style={styles.loginButton}
               onPress={handleSubmit}
@@ -124,12 +134,14 @@ const LoginScreen = () => {
         )}
       </Formik>
 
+      {/* Separator with 'OR' text for social login */}
       <View style={styles.orContainer}>
         <View style={styles.line} />
         <Text style={styles.orText}>OR</Text>
         <View style={styles.line} />
       </View>
 
+      {/* Container for social login buttons */}
       <View style={styles.socialContainer}>
         <TouchableOpacity style={styles.socialButton}>
           <Icon name="logo-google" size={24} color="#DB4437" />
@@ -144,6 +156,7 @@ const LoginScreen = () => {
         </TouchableOpacity>
       </View>
 
+      {/* Link to RegisterScreen */}
       <TouchableOpacity
         style={styles.registerButton}
         onPress={() => navigation.navigate("RegisterScreen")}

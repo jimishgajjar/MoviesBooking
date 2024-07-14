@@ -24,6 +24,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const { movies, setMovies } = useStore(MoviesStore);
 
+  // Fetch movies from API
   useEffect(() => {
     const loadMovies = async () => {
       try {
@@ -37,6 +38,7 @@ const HomeScreen = () => {
     loadMovies();
   }, [setMovies]);
 
+  // Render function for each movie item in FlatList
   const renderMovieItem = ({ item }) => <DisplayMovieItem item={item} />;
 
   return (
@@ -46,13 +48,16 @@ const HomeScreen = () => {
     >
       <ScrollView>
         <View style={styles.container}>
+          {/* Hero image at the top */}
           <Image source={HeroImage} style={styles.image} />
+          {/* Section header with recommended movies and 'See All' button */}
           <View style={styles.headerContainer}>
             <Text style={styles.headerText}>Recommended Movies</Text>
             <TouchableOpacity onPress={() => navigation.navigate("Movies")}>
               <Text style={styles.seeAllText}>See All</Text>
             </TouchableOpacity>
           </View>
+          {/* FlatList to display movies */}
           <View style={styles.content}>
             <FlatList
               data={movies}

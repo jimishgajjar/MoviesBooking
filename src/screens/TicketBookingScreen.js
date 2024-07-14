@@ -18,15 +18,17 @@ import { addBookingToUser, updateUser } from "../services/api";
 import { LoginStore } from "../store";
 
 const TicketBookingScreen = ({ route, navigation }) => {
-  const { movie } = route.params;
-  const { user, setUser } = useStore(LoginStore);
+  const { movie } = route.params; // Extracting movie data from navigation route
+  const { user, setUser } = useStore(LoginStore); // Using Zustand store for user data
 
+  // Handle back navigation
   const handleBack = () => {
     navigation.goBack();
   };
 
+  // Handle confirming booking
   const handleConfirmBooking = async (values) => {
-    const bookingDate = new Date();
+    const bookingDate = new Date(); // Current booking date
     const bookingData = {
       movie: movie,
       numberOfPeople: parseInt(values.numberOfPeople),
@@ -42,8 +44,8 @@ const TicketBookingScreen = ({ route, navigation }) => {
           ? [...user.bookings, bookingData]
           : [bookingData],
       };
-      setUser(updatedUser);
-      await updateUser(updatedUser);
+      setUser(updatedUser); // Update local Zustand store
+      await updateUser(updatedUser); // Update backend or local storage
 
       // Navigate to BookingsScreen or any other screen as needed
       navigation.navigate("BookingsScreen");
@@ -52,6 +54,7 @@ const TicketBookingScreen = ({ route, navigation }) => {
     }
   };
 
+  // Form validation schema using Yup
   const validationSchema = Yup.object().shape({
     numberOfPeople: Yup.number()
       .min(1, "Number of people must be greater than 0")
@@ -82,11 +85,13 @@ const TicketBookingScreen = ({ route, navigation }) => {
         setSubmitting,
         validateForm,
       }) => {
+        // Function to handle field changes and set touched state
         const handleFieldChange = (field) => (value) => {
           setFieldValue(field, value);
           setFieldTouched(field, true, false);
         };
 
+        // Function to handle form submission with validation
         const handleFormSubmit = async () => {
           setSubmitting(true);
           const validationErrors = await validateForm();
@@ -98,6 +103,7 @@ const TicketBookingScreen = ({ route, navigation }) => {
 
         return (
           <View style={styles.container}>
+            {/* Header with back button and title */}
             <View style={styles.headerContainer}>
               <TouchableOpacity onPress={handleBack} style={styles.backButton}>
                 <FontAwesome name="angle-left" size={24} color="#dc3558" />
@@ -105,6 +111,7 @@ const TicketBookingScreen = ({ route, navigation }) => {
               <Text style={styles.title}>Book Tickets</Text>
             </View>
 
+            {/* Movie information section */}
             {movie && (
               <View style={styles.movieInfoContainer}>
                 <Image
@@ -125,6 +132,7 @@ const TicketBookingScreen = ({ route, navigation }) => {
               </View>
             )}
 
+            {/* Input fields for number of people and children */}
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Number of People:</Text>
               <TextInput
@@ -151,12 +159,15 @@ const TicketBookingScreen = ({ route, navigation }) => {
               )}
             </View>
 
+            {/* Confirm booking button */}
             <TouchableOpacity
               style={styles.bookButton}
               onPress={handleFormSubmit}
             >
               <Text style={styles.bookButtonText}>Confirm Booking</Text>
             </TouchableOpacity>
+
+            {/* Loading indicator */}
             {isSubmitting && (
               <View style={styles.loadingContainer}>
                 <ActivityIndicator size="large" color="#dc3558" />

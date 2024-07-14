@@ -10,12 +10,16 @@ import { useStore } from "zustand";
 import { LoginStore } from "../store";
 import BookingCard from "../components/BookingCard/BookingCard";
 
+// Component displaying user bookings with a scrollable list of BookingCard components.
 const BookingsScreen = () => {
+  // Access user data from Zustand store
   const { user } = useStore(LoginStore);
 
+  // Extract bookings array from user data or initialize as empty array
   const bookings = user ? user.bookings || [] : [];
 
   return (
+    // Avoid keyboard and handle screen adjustments based on platform
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
@@ -23,6 +27,7 @@ const BookingsScreen = () => {
     >
       <ScrollView>
         <View>
+          {/* Render each booking as a BookingCard component */}
           {bookings.map((booking, index) => (
             <BookingCard key={index} booking={booking} />
           ))}

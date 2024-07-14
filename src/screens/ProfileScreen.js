@@ -7,21 +7,28 @@ import { LoginStore } from "../store";
 import { useStore } from "zustand";
 
 const ProfileScreen = ({ navigation }) => {
-  const { user, setUser } = useStore(LoginStore);
+  const { user, setUser } = useStore(LoginStore); // Accessing Zustand store for user data
 
+  // Function to handle logout
   const handleLogout = () => {
-    setUser(null);
-    navigation.navigate("LoginScreen");
+    setUser(null); // Clear user data in Zustand store
+    navigation.navigate("LoginScreen"); // Navigate to LoginScreen after logout
   };
 
+  // If user data is not available, render nothing
   if (!user) {
     return null;
   }
 
   return (
     <View style={styles.container}>
+      {/* Display user profile picture */}
       <ProfilePicture profilePic={user.profilePic} style={styles.profilePic} />
+
+      {/* Display user information */}
       <UserInfo userInfo={user} />
+
+      {/* Logout button */}
       <LogoutButton onPress={handleLogout} />
     </View>
   );
