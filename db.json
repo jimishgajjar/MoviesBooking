@@ -64,6 +64,36 @@
           "numberOfPeople": 1,
           "numberOfChildren": 0,
           "bookingDate": "14-07-2024"
+        },
+        {
+          "movie": {
+            "id": "2",
+            "title": "Jhamkudi",
+            "imageUri": "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC/et00395950-tgqqwnxmbj-portrait.jpg",
+            "type": "Comedy/Horror/Mystery",
+            "duration": "2h 15m",
+            "language": "Hindi",
+            "releaseDate": "15 Jul, 2024",
+            "description": "A humorous yet spooky adventure unraveling the mysteries of Jhamkudi."
+          },
+          "numberOfPeople": 1,
+          "numberOfChildren": 0,
+          "bookingDate": "14-07-2024"
+        },
+        {
+          "movie": {
+            "id": "1",
+            "title": "Kalki 2898 AD",
+            "imageUri": "https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC/et00352941-vlynhuektb-portrait.jpg",
+            "type": "Action/Sci-Fi/Thriller",
+            "duration": "3h 1m",
+            "language": "Telugu, Hindi, +3",
+            "releaseDate": "27 Jun, 2024",
+            "description": "When the world is taken over by darkness. A force will rise."
+          },
+          "numberOfPeople": 3,
+          "numberOfChildren": 0,
+          "bookingDate": "14-07-2024"
         }
       ]
     },

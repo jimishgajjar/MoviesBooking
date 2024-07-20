@@ -24,19 +24,22 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const { movies, setMovies } = useStore(MoviesStore);
 
-  // Fetch movies from API
+  // Fetch movies from API only if movies state is empty
   useEffect(() => {
     const loadMovies = async () => {
       try {
-        const fetchedMovies = await fetchMovies();
-        setMovies(fetchedMovies);
+        // Check if movies state is empty before fetching
+        if (movies.length === 0) {
+          const fetchedMovies = await fetchMovies();
+          setMovies(fetchedMovies);
+        }
       } catch (error) {
         console.error("Error loading movies:", error);
       }
     };
 
     loadMovies();
-  }, [setMovies]);
+  }, [movies, setMovies]); // Dependency array includes movies and setMovies
 
   // Render function for each movie item in FlatList
   const renderMovieItem = ({ item }) => <DisplayMovieItem item={item} />;
@@ -62,7 +65,7 @@ const HomeScreen = () => {
             <FlatList
               data={movies}
               renderItem={renderMovieItem}
-              keyExtractor={(item) => item.id}
+              keyExtractor={(item) => item.id.toString()}
               numColumns={2}
               scrollEnabled={false}
             />

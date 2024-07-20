@@ -44,8 +44,8 @@ const TicketBookingScreen = ({ route, navigation }) => {
           ? [...user.bookings, bookingData]
           : [bookingData],
       };
-      setUser(updatedUser); // Update local Zustand store
-      await updateUser(updatedUser); // Update backend or local storage
+      setUser(updatedUser);
+      await updateUser(updatedUser);
 
       // Navigate to BookingsScreen or any other screen as needed
       navigation.navigate("BookingsScreen");
