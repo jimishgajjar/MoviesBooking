@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
 import { MoviesStore } from "../store";

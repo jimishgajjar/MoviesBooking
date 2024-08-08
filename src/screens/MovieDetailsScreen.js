@@ -45,7 +45,7 @@ const MovieDetailsScreen = () => {
         </View>
 
         {/* Movie image */}
-        <Image source={{ uri: movie.imageUri }} style={styles.image} />
+        <Image source={{ uri: movie.image_uri }} style={styles.image} />
 
         {/* Subheader with genre, duration, language, and release date */}
         <View style={styles.subHeader}>

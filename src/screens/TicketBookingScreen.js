@@ -115,7 +115,7 @@ const TicketBookingScreen = ({ route, navigation }) => {
             {movie && (
               <View style={styles.movieInfoContainer}>
                 <Image
-                  source={{ uri: movie.imageUri }}
+                  source={{ uri: movie.image_uri }}
                   style={styles.movieImage}
                 />
                 <Text style={styles.movieTitle}>{movie.title}</Text>

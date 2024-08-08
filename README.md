@@ -35,3 +35,5 @@ npm cache clean --force
 yarn cache clean
 
 ```
+
+sk.eyJ1Ijoid2ViaG9zdDQ2NiIsImEiOiJjbHprc2FvZGkxMW0yMnJwcTZ6YzEyZjJwIn0.rKw8N1rVDodFVIYIUbunRw

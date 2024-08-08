@@ -19,7 +19,7 @@ const DisplayMovieItem = ({ item }) => {
 
   return (
     <TouchableOpacity onPress={handlePress} style={styles.movieContainer}>
-      <Image source={{ uri: item.imageUri }} style={styles.movieImage} />
+      <Image source={{ uri: item.image_uri }} style={styles.movieImage} />
       <Text style={styles.movieTitle}>{item.title}</Text>
       <Text style={styles.movieType}>{item.type}</Text>
     </TouchableOpacity>

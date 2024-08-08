@@ -15,8 +15,8 @@ import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
 import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
 import HeroImage from "../assets/images/movies/hero.jpg";
-import { fetchMovies } from "../services/api";
 import { MoviesStore } from "../store";
+import { getAllMovies } from "../services/api";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -30,7 +30,7 @@ const HomeScreen = () => {
       try {
         // Check if movies state is empty before fetching
         if (movies.length === 0) {
-          const fetchedMovies = await fetchMovies();
+          const fetchedMovies = await getAllMovies();
           setMovies(fetchedMovies);
         }
       } catch (error) {

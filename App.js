@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,8 +12,13 @@ import CustomHeader from "./src/components/CustomHeader/CustomHeader";
 import MovieDetailsScreen from "./src/screens/MovieDetailsScreen";
 import BookingsScreen from "./src/screens/BookingsScreen";
 import SplashScreen from "./src/screens/SplashScreen";
-import TicketBookingScreen from "./src/screens/TicketBookingScreen";
+import TicketViewScreen from "./src/screens/TicketViewScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
+import seedDatabase from "./src/utils/seed";
+import TicketBookingScreen from "./src/screens/TicketBookingScreen";
+import seedFirbaseData from "./src/utils/seedFirbaseData";
+import FaqScreen from "./src/screens/FaqScreen";
+import MapScreen from "./src/screens/MapScreen"; // Import the new MapScreen
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +39,8 @@ function MainTabNavigator() {
             iconName = focused ? "ticket" : "ticket-outline";
           } else if (route.name === "Profile") {
             iconName = focused ? "person" : "person-outline";
+          } else if (route.name === "Map") {
+            iconName = focused ? "map" : "map-outline";
           }
 
           return (
@@ -90,6 +97,15 @@ function MainTabNavigator() {
         }}
       />
       <Tab.Screen
+        name="Map"
+        component={MapScreen}
+        options={{
+          header: ({ navigation }) => (
+            <CustomHeader title="Map" navigation={navigation} />
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Profile"
         component={ProfileScreen}
         options={{
@@ -103,6 +119,17 @@ function MainTabNavigator() {
 }
 
 export default function App() {
+  useEffect(() => {
+    const initializeDatabase = async () => {
+      console.log("*************");
+      await seedDatabase();
+      // await seedFirbaseData();
+      console.log("*************");
+    };
+
+    initializeDatabase();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -122,6 +149,8 @@ export default function App() {
           name="TicketBookingScreen"
           component={TicketBookingScreen}
         />
+        <Stack.Screen name="TicketViewScreen" component={TicketViewScreen} />
+        <Stack.Screen name="FaqScreen" component={FaqScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

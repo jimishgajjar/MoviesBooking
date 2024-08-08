@@ -1,25 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   KeyboardAvoidingView,
   ScrollView,
   View,
   Platform,
+  ActivityIndicator,
+  Text,
 } from "react-native";
 import { useStore } from "zustand";
 import { LoginStore } from "../store";
 import BookingCard from "../components/BookingCard/BookingCard";
+import { getBookingsByUserId } from "../services/api";
 
-// Component displaying user bookings with a scrollable list of BookingCard components.
 const BookingsScreen = () => {
-  // Access user data from Zustand store
   const { user } = useStore(LoginStore);
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Extract bookings array from user data or initialize as empty array
-  const bookings = user ? user.bookings || [] : [];
+  useEffect(() => {
+    const loadUserBookings = async () => {
+      try {
+        const fetcheBookingsCollection = await getBookingsByUserId(user.id);
+        const userBookings = fetcheBookingsCollection.map(
+          (fetcheBookingsCollection) => fetcheBookingsCollection._raw
+        );
+        setBookings(userBookings);
+      } catch (err) {
+        setError("Error loading bookings");
+        console.error("Error loading bookings:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserBookings();
+  }, [user.id]);
+
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+      </View>
+    );
+  }
 
   return (
-    // Avoid keyboard and handle screen adjustments based on platform
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
@@ -27,10 +62,13 @@ const BookingsScreen = () => {
     >
       <ScrollView>
         <View>
-          {/* Render each booking as a BookingCard component */}
-          {bookings.map((booking, index) => (
-            <BookingCard key={index} booking={booking} />
-          ))}
+          {bookings.length > 0 ? (
+            bookings.map((booking, index) => (
+              <BookingCard key={index} booking={booking} />
+            ))
+          ) : (
+            <Text style={styles.noBookingsText}>No bookings found.</Text>
+          )}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -42,47 +80,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
   },
-  card: {
-    margin: 16,
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    elevation: 4,
-    flexDirection: "row",
-    overflow: "hidden",
-  },
-  cardImage: {
-    width: 135,
-    height: "100%",
-    resizeMode: "cover",
-  },
-  cardContent: {
+  loaderContainer: {
     flex: 1,
-    padding: 16,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  cardTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  cardRating: {
-    fontSize: 14,
-    color: "#888",
-    marginVertical: 4,
+  errorText: {
+    color: "red",
+    fontSize: 16,
   },
-  cardDetails: {
-    fontSize: 14,
-    marginVertical: 4,
-  },
-  cardButton: {
-    backgroundColor: "#ff5a5f",
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 4,
-    marginTop: 8,
-  },
-  cardButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
+  noBookingsText: {
     textAlign: "center",
+    marginTop: 20,
+    fontSize: 16,
+    color: "#555",
   },
 });
 
