@@ -7,11 +7,13 @@ import {
   Platform,
   ActivityIndicator,
   Text,
+  Image,
 } from "react-native";
 import { useStore } from "zustand";
 import { LoginStore } from "../store";
 import BookingCard from "../components/BookingCard/BookingCard";
 import { getBookingsByUserId } from "../services/api";
+import noBookingsImage from "../assets/images/no-bookings.jpg";
 
 const BookingsScreen = () => {
   const { user } = useStore(LoginStore);
@@ -67,7 +69,10 @@ const BookingsScreen = () => {
               <BookingCard key={index} booking={booking} />
             ))
           ) : (
-            <Text style={styles.noBookingsText}>No bookings found.</Text>
+            <View style={styles.noBookingsContainer}>
+              <Image source={noBookingsImage} style={styles.noBookingsImage} />
+              <Text style={styles.noBookingsText}>No bookings found.</Text>
+            </View>
           )}
         </View>
       </ScrollView>
@@ -94,9 +99,18 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 16,
   },
+  noBookingsContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  noBookingsImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 10,
+  },
   noBookingsText: {
     textAlign: "center",
-    marginTop: 20,
     fontSize: 16,
     color: "#555",
   },
