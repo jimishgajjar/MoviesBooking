@@ -9,8 +9,8 @@ import {
   Platform,
 } from "react-native";
 import { useStore } from "zustand";
-import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
-import { MoviesStore } from "../store";
+import DisplayMovieItem from "../../components/DisplayMovieItem/DisplayMovieItem";
+import { MoviesStore } from "../../store";
 
 const MoviesListScreen = () => {
   const { movies, setMovies } = useStore(MoviesStore); // Accessing Zustand store

@@ -10,10 +10,10 @@ import {
   Image,
 } from "react-native";
 import { useStore } from "zustand";
-import { LoginStore } from "../store";
-import BookingCard from "../components/BookingCard/BookingCard";
-import { getBookingsByUserId } from "../services/api";
-import noBookingsImage from "../assets/images/no-bookings.jpg";
+import { LoginStore } from "../../store";
+import BookingCard from "../../components/BookingCard/BookingCard";
+import { getBookingsByUserId } from "../../services/api";
+import noBookingsImage from "../../assets/images/no-bookings.jpg";
 
 const BookingsScreen = () => {
   const { user } = useStore(LoginStore);

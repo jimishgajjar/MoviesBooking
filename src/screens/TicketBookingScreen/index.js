@@ -14,8 +14,8 @@ import * as Yup from "yup";
 import { format } from "date-fns";
 import { useStore } from "zustand";
 
-import { addBookingToUser, updateUser } from "../services/api";
-import { LoginStore } from "../store";
+import { addBookingToUser, updateUser } from "../../services/api";
+import { LoginStore } from "../../store";
 
 const TicketBookingScreen = ({ route, navigation }) => {
   const { movie } = route.params; // Extracting movie data from navigation route

@@ -18,7 +18,7 @@ import seedDatabase from "./src/utils/seed";
 import TicketBookingScreen from "./src/screens/TicketBookingScreen";
 import seedFirbaseData from "./src/utils/seedFirbaseData";
 import FaqScreen from "./src/screens/FaqScreen";
-import MapScreen from "./src/screens/MapScreen"; // Import the new MapScreen
+import MapScreen from "./src/screens/MapScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();

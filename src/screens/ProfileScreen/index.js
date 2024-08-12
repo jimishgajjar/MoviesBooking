@@ -11,9 +11,9 @@ import {
   ScrollView,
 } from "react-native";
 import { useStore } from "zustand";
-import { LoginStore } from "../store";
+import { LoginStore } from "../../store";
 import Icon from "react-native-vector-icons/FontAwesome";
-import UserPicture from "../assets/images/user.png";
+import UserPicture from "../../assets/images/user.png";
 
 const { height: screenHeight } = Dimensions.get("window");
 

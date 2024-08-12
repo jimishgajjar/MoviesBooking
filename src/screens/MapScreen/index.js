@@ -12,21 +12,21 @@ const annotations = [
     coordinate: [-79.90186, 43.53161],
     title: "Location 1",
     description: "Description for Location 1",
-    image: require("../assets/images/mapmarker.png"),
+    image: require("../../assets/images/mapmarker.png"),
   },
   {
     id: "annotation2",
     coordinate: [-79.9032, 43.5328],
     title: "Location 2",
     description: "Description for Location 2",
-    image: require("../assets/images/mapmarker.png"),
+    image: require("../../assets/images/mapmarker.png"),
   },
   {
     id: "annotation3",
     coordinate: [-79.9042, 43.5338],
     title: "Location 3",
     description: "Description for Location 3",
-    image: require("../assets/images/mapmarker.png"),
+    image: require("../../assets/images/mapmarker.png"),
   },
 ];
 

@@ -12,12 +12,12 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-import Logo from "../assets/images/logo/logo.png";
+import Logo from "../../assets/images/logo/logo.png";
 
-import CustomTextInput from "../components/CustomTextInput/CustomTextInput";
+import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
 
-import { loginUser } from "../services/api";
-import useLoginStore from "../store/LoginStore"; // Import your Zustand store hook
+import { loginUser } from "../../services/api";
+import useLoginStore from "../../store/LoginStore"; // Import your Zustand store hook
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 

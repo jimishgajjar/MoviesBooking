@@ -13,10 +13,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useStore } from "zustand";
-import DisplayMovieItem from "../components/DisplayMovieItem/DisplayMovieItem";
-import HeroImage from "../assets/images/movies/hero.jpg";
-import { MoviesStore } from "../store";
-import { getAllMovies } from "../services/api";
+import DisplayMovieItem from "../../components/DisplayMovieItem/DisplayMovieItem";
+import HeroImage from "../../assets/images/movies/hero.jpg";
+import { MoviesStore } from "../../store";
+import { getAllMovies } from "../../services/api";
 
 const { width: screenWidth } = Dimensions.get("window");
 

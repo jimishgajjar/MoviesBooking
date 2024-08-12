@@ -16,9 +16,9 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import Logo from "../assets/images/logo/logo.png";
-import CustomTextInput from "../components/CustomTextInput/CustomTextInput";
-import { addUser } from "../services/api";
+import Logo from "../../assets/images/logo/logo.png";
+import CustomTextInput from "../../components/CustomTextInput/CustomTextInput";
+import { addUser } from "../../services/api";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
